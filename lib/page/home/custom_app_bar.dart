@@ -16,20 +16,23 @@ class CustomAppBar extends StatelessWidget {
             fontWeight: FontWeight.w600
           )),
       actions: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // SizedBox(height: 10.0,),
-            SvgPicture.asset(
-              "assets/svg/filter_icon.svg",
-              height: 24.0,
-              width: 24.0,
-            ),
-            const Text(
-              "Lọc",
-              style: TextStyle(color: Colors.black, fontSize: 14.0,fontWeight: FontWeight.w500),
-            )
-          ],
+        Stack(
+          children:[ Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height:15.0),
+              // SizedBox(height: 10.0,),
+              SvgPicture.asset(
+                "assets/svg/filter_icon.svg",
+                height: 24.0,
+                width: 24.0,
+              ),
+              const Text(
+                "Lọc",
+                style: TextStyle(color: Colors.black, fontSize: 14.0,fontWeight: FontWeight.w500),
+              )
+            ],
+          )],
         ),
         SizedBox(width: 18.0)
       ],

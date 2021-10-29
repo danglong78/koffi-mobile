@@ -54,7 +54,8 @@ class _LoginPageState extends State<LoginPage> {
                       TextFormField(
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 16.0, fontWeight: FontWeight.w400),
-                        validator: (value) => (value!.isEmpty || value.length>15) ? "" : null,
+                        validator: (value) =>
+                            (value!.isEmpty || value.length > 15) ? "" : null,
                         onSaved: (input) {
                           taxNumber = input!.trim();
                         },
@@ -134,12 +135,30 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              Navigator.pushAndRemoveUntil(context,
-                                  MaterialPageRoute(
-                                builder: (context) {
-                                  return HomePage();
-                                },
-                              ), (route) => false);
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  PageRouteBuilder(
+                                    transitionDuration: Duration(milliseconds: 500),
+                                    transitionsBuilder: (context, animation,
+                                        secondaryAnimation, child) {
+                                      animation = CurvedAnimation(
+                                          parent: animation,
+                                          curve: Curves.linear);
+                                      var offsetAnimation = Tween<Offset>(
+                                              end: Offset.zero,
+                                              begin: Offset(1.0, 0.0))
+                                          .animate(animation);
+                                      return SlideTransition(
+                                          position: offsetAnimation,
+                                          child: child);
+                                    },
+                                    pageBuilder: (BuildContext context,
+                                        Animation<double> animation,
+                                        Animation<double> secondaryAnimation) {
+                                      return HomePage();
+                                    },
+                                  ),
+                                  (route) => false);
                             } else {
                               showDialog(
                                 context: context,

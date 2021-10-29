@@ -10,10 +10,8 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
-
-
-
+class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateMixin {
+  late AnimationController animationController;
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -24,13 +22,17 @@ class _SplashPageState extends State<SplashPage> {
         alignment: Alignment.center,
         children: [
           TweenAnimationBuilder(
-            tween: Tween<double>(begin:1.5, end:1.0),
-            duration: Duration(seconds:2),curve: Curves.bounceOut,
-            builder:(_,double size, __)=> Positioned(
+            tween: Tween<double>(begin: 1.5, end: 1.0),
+            duration: Duration(seconds: 2),
+            curve: Curves.bounceOut,
+            builder: (_, double size, __) => Positioned(
                 top: height * 0.44,
-                child: SvgPicture.asset("assets/svg/logo_splash.svg",width:width*0.573*size ,height:height*0.09*size ,)),
+                child: SvgPicture.asset(
+                  "assets/svg/logo_splash.svg",
+                  width: width * 0.573 * size,
+                  height: height * 0.09 * size,
+                )),
           ),
-
           Positioned(
             left: width * 0.22,
             top: height * 0.17,
@@ -137,11 +139,28 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
+    animationController = AnimationController(vsync: this,duration:Duration(seconds: 2));
+    Future.delayed(Duration(seconds: 3), () {
 
-    Future.delayed(Duration(seconds: 3),(){
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
-        return LoginPage();
-      },), (route) => false);
+      Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            transitionDuration: Duration(milliseconds: 500),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              animation =
+                  CurvedAnimation(parent: animation, curve: Curves.linear);
+              var offsetAnimation =
+                  Tween<Offset>(end: Offset.zero, begin: Offset(1.0, 0.0))
+                      .animate(animation);
+              return SlideTransition(position: offsetAnimation, child: child);
+            },
+            pageBuilder: (BuildContext context, Animation<double> animation,
+                Animation<double> secondaryAnimation) {
+              return LoginPage();
+            },
+          ),
+          );
     });
 
     super.initState();
