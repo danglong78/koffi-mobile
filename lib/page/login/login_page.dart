@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:koffi_dev/page/page.dart';
-import 'package:koffi_dev/widget/widget.dart';
+import 'package:koffi/page/page.dart';
+import 'package:koffi/widget/widget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

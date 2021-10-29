@@ -1,4 +1,4 @@
-package com.example.koffi_dev
+package com.example.koffi
 
 import io.flutter.embedding.android.FlutterActivity
 

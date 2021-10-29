@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:koffi_dev/page/splash/splash_page.dart';
-import 'package:koffi_dev/theme.dart';
+import 'package:koffi/page/splash/splash_page.dart';
+import 'package:koffi/theme.dart';
 
 void main() {
   runApp(const MyApp());
